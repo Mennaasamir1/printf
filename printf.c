@@ -20,11 +20,8 @@ int _printf(const char *format, ...)
 		{
 			ftr[i] = '\0';
 			i = 0;
-
 			if (ftr[0] != '%')
-			{
 				fprintf(stdout, "%s", ftr);
-			}
 			else
 			{
 				m = 1;
@@ -32,18 +29,13 @@ int _printf(const char *format, ...)
 				while ((var1 = ftr[m++]) < num)
 					;
 				if (var1 == 'c')
-				{
 					fprintf(stdout, ftr, va_arg(argus, int));
-				}
 				else if (var1 == 's')
-				{
 					fprintf(stdout, ftr, va_arg(argus, char *));
-				}
 				else
 				{
 					fprintf(stdout, "%s", ftr);
 				}
-				
 			}
 		}
 	}
