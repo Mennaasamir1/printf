@@ -1,5 +1,3 @@
-#include <stdio.h>
-#include <stdarg.h>
 #include "main.h"
 /**
  * _printf - function which produces output
@@ -34,6 +32,10 @@ int _printf(const char *format, ...)
 				{
 					num_char += fprintf(stdout, "%s", va_arg(argus, char *));
 					break;
+				}
+				else if (*format == 'd' || *format == 'i')
+				{
+					num_char += fprintf(stdout, "%d", va_arg(argus, int));
 				}
 				putchar('%');
 				putchar(*format);
