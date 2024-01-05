@@ -36,6 +36,7 @@ int _printf(const char *format, ...)
 				else if (*format == 'd' || *format == 'i')
 				{
 					num_char += fprintf(stdout, "%d", va_arg(argus, int));
+					break;
 				}
 				putchar('%');
 				putchar(*format);
