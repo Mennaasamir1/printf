@@ -8,37 +8,41 @@
  */
 int _printf(const char *format, ...)
 {
-	int j, i = 0, m, num = 58;
 	va_list argus;
-	char ftr[1000], var1;
+	int num_char = 0;
 
 	va_start(argus, format);
-	for (j = 0; format[j] != '\0'; j++)
+	while (*format != '\0')
 	{
-		ftr[i++] = format[j];
-		if (format[j + 1] == '%' || format[j + 1] == '\0')
+		if (*format != '%')
 		{
-			ftr[i] = '\0';
-			i = 0;
-			if (ftr[0] != '%')
-				fprintf(stdout, "%s", ftr);
-			else
+			putchar(*format);
+			num_char++;
+		}
+		else
+		{
+			while (*++format)
 			{
-				m = 1;
-				var1 = 0;
-				while ((var1 = ftr[m++]) < num)
-					;
-				if (var1 == 'c')
-					fprintf(stdout, ftr, va_arg(argus, int));
-				else if (var1 == 's')
-					fprintf(stdout, ftr, va_arg(argus, char *));
-				else
+				if (*format == '%')
+					format++;
+				else if (*format == 'c')
 				{
-					fprintf(stdout, "%s", ftr);
+					num_char += fprintf(stdout, "%c", va_arg(argus, int));
+					break;
 				}
+				else if (*format == 's')
+				{
+					num_char += fprintf(stdout, "%s", va_arg(argus, char *));
+					break;
+				}
+				putchar('%');
+				putchar(*format);
+				num_char += 2;
+				break;
 			}
 		}
+		format++;
 	}
 	va_end(argus);
-	return (0);
+	return (num_char);
 }
